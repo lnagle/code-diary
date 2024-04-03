@@ -1,0 +1,12 @@
+{
+  "name": "at-risk-housing",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Lucas Nagle",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "csv-stringify": "^6.4.6"
+  }
+}
