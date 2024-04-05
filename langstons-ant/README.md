@@ -1,7 +1,7 @@
 ## Overview
 
-[Langston's Ant](https://en.wikipedia.org/wiki/Langton%27s_ant)
+[Langston's Ant](https://en.wikipedia.org/wiki/Langton%27s_ant), built with Python
 
 ## Installing and Running
 
-From the root diectory, run `python index.py`
+From the root directory, run `python index.py`

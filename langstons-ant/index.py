@@ -1,37 +1,98 @@
-# Add support for command line arguments: board size, ant starting position
-x = 50 
-y = 50
+import time
 
-row = [None] * x
-board = [row] * y
+'''
+TODO
+- Update board in place when printing instead of printing a new board every time
+'''
+
+# TODO Add support for command line arguments: x and y
+x = 20
+y = 20
+
+def create_board(x, y):
+  board = []
+
+  for i in range(y):
+    board.append([False] * x)
+
+  return board
+
+board = create_board(x, y)
 
 ant = {
-  x: 25,
-  y: 25
+  'x': round(x / 2),
+  'y': round(y / 2),
+  'orientation': 'n'
 }
 
-round = 0 
+clockwise_orientation_map = {
+  'n': 'e',
+  'e': 's',
+  's': 'w',
+  'w': 'n'
+}
 
-def runNextRound(board, ant): 
+counter_clockwise_orientation_map = {
+  'n': 'w',
+  'w': 's',
+  's': 'e',
+  'e': 'n'
+}
+
+def run_next_round(board, ant, round = 0):
   round += 1
+  print(f'-------------{round}------------------')
 
-  # Make this functional
-  moveAnt(board, ant)
+  (board, ant, game_over) = move_ant(board, ant)
 
-  # Print to screen
-  # printRound(board, ant)  
+  if game_over:
+    print(f'Game over after {round} rounds')
+    return
 
-  # Sleep?
+  print_round(board, ant)
 
-def moveAnt(board, ant):
-  '''
-  If ant is on white, go left
-    Flip color
-  If ant is on black, go right
-    Flip color
-  If ant can't go intended direction, end game
-  '''
-  print (ant)
+  time.sleep(0.5)
 
-def printRound(board, ant):
-  print(ant)
+  run_next_round(board, ant, round)
+
+# TODO Abstract all comments to functions
+def move_ant(board, ant):
+  current_board_value = board[ant['y']][ant['x']]
+
+  # update_current_tile
+  board[ant['y']][ant['x']] = not current_board_value
+
+  direction = None
+
+  # reorient_ant
+  if current_board_value:
+    direction = clockwise_orientation_map
+  else:
+    direction = counter_clockwise_orientation_map
+  ant['orientation'] = direction[ant['orientation']]
+
+  # move_ant
+  if ant['orientation'] == 'n':
+    ant['y'] += 1
+  elif ant['orientation'] == 'e':
+    ant['x'] += 1
+  elif ant['orientation'] == 's':
+    ant['y'] -= 1
+  else:
+    ant['x'] -= 1
+
+  game_over = False
+
+  # check_is_game_over
+  if ant['x'] < 0 or ant['x'] == x or ant['y'] < 0 or ant['y'] == y:
+    game_over = True
+
+  return (board, ant, game_over)
+
+# TODO: Print an X where the ant is
+def print_round(board, ant):
+  for i in range(len(board)):
+    row = list(map(lambda x: 1 if x else 0, board[i]))
+    print(row)
+
+run_next_round(board, ant)
