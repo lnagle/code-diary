@@ -4,4 +4,6 @@
 
 ## Installing and Running
 
-From the root directory, run `python index.py`
+From the root directory, run `python index.py`.
+
+Board width and board height can also be passed as command line arguments: `python index.py 50 50`

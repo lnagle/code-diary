@@ -1,13 +1,13 @@
 import time
+import sys
 
 '''
 TODO
 - Update board in place when printing instead of printing a new board every time
 '''
 
-# TODO Add support for command line arguments: x and y
-x = 20
-y = 20
+x = int(sys.argv[1]) if len(sys.argv) >= 3 else 20
+y = int(sys.argv[2]) if len(sys.argv) >= 3 else 20
 
 def create_board(x, y):
   board = []
