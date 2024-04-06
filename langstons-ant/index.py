@@ -89,10 +89,18 @@ def move_ant(board, ant):
 
   return (board, ant, game_over)
 
-# TODO: Print an X where the ant is
 def print_round(board, ant):
   for i in range(len(board)):
-    row = list(map(lambda x: 1 if x else 0, board[i]))
+    row = []
+
+    for j in range(len(board[i])):
+      if ant['y'] == i and ant['x'] == j:
+        row.append('X')
+      elif board[i][j]:
+        row.append('+')
+      else:
+        row.append('-')
+
     print(row)
 
 run_next_round(board, ant)
