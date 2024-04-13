@@ -43,7 +43,7 @@ def run_next_round(board, ant, round = 0):
   round += 1
   print(f'-------------{round}------------------')
 
-  (board, ant, game_over) = move_ant(board, ant)
+  (board, ant, game_over) = update_board(board, ant)
 
   if game_over:
     print(f'Game over after {round} rounds')
@@ -55,23 +55,20 @@ def run_next_round(board, ant, round = 0):
 
   run_next_round(board, ant, round)
 
-# TODO Abstract all comments to functions
-def move_ant(board, ant):
-  current_board_value = board[ant['y']][ant['x']]
-
-  # update_current_tile
+def update_current_tile(board, ant, current_board_value):
   board[ant['y']][ant['x']] = not current_board_value
 
+def reorient_ant(current_board_value, ant):
   direction = None
 
-  # reorient_ant
   if current_board_value:
     direction = clockwise_orientation_map
   else:
     direction = counter_clockwise_orientation_map
+
   ant['orientation'] = direction[ant['orientation']]
 
-  # move_ant
+def move_ant(ant):
   if ant['orientation'] == 'n':
     ant['y'] += 1
   elif ant['orientation'] == 'e':
@@ -81,13 +78,22 @@ def move_ant(board, ant):
   else:
     ant['x'] -= 1
 
-  game_over = False
 
-  # check_is_game_over
-  if ant['x'] < 0 or ant['x'] == x or ant['y'] < 0 or ant['y'] == y:
-    game_over = True
+def check_is_game_over(ant):
+  return ant['x'] < 0 or ant['x'] == x or ant['y'] < 0 or ant['y'] == y
 
-  return (board, ant, game_over)
+def update_board(board, ant):
+  current_board_value = board[ant['y']][ant['x']]
+
+  update_current_tile(board, ant, current_board_value)
+
+  reorient_ant(current_board_value, ant)
+
+  move_ant(ant)
+
+  is_game_over = check_is_game_over(ant)
+
+  return (board, ant, is_game_over)
 
 def print_round(board, ant):
   for i in range(len(board)):
