@@ -8,9 +8,7 @@ When measured, most processes will exhibit a certain amount of variation that ca
 
 ## Installing and Running
 
-### Installation 
-
-Install the following:
+### Prerequisites 
 
 - Python
 - Matplotlib
@@ -20,12 +18,8 @@ Install the following:
 
 1. Open `index.ipynb` and press `Run All`. Try changing the `sample_data` and switching back and forth between the two formulas, `xmr_data_from_median` and `xmr_data_from_average`
 
-## Some Examples of Software Processes That Can Benefit From This Approach
+## Software Processes That Can Benefit From This Approach
 
 - \# of bug produced over a given time
 - Production outtage frequency and rates
 - Managing time to get PRs reviewed and merged
-
-## Operationalizing This Approach
-
-TODO
